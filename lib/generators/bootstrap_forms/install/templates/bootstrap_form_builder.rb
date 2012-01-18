@@ -23,9 +23,13 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
       @options = args.extract_options!
       @args = args
 
-      clearfix_div do
-        label_field + input_div do
-          extras { super(name, *(@args << @options)) }
+      if @options[:skip_bootstrap] == true
+        super(name, *(@args << @options))
+      else
+        clearfix_div do
+          label_field + input_div do
+            extras { super(name, *(@args << @options)) }
+          end
         end
       end
     end
